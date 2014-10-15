@@ -34,6 +34,11 @@ interface ClientManagerInterface
     function findClientByPublicId($publicId);
 
     /**
+     * @return ClientInterface
+     */
+    function findClientById($clientId);
+
+    /**
      * @param ClientInterface
      */
     function updateClient(ClientInterface $client);

@@ -102,6 +102,11 @@ class OAuthStorage implements IOAuth2RefreshTokens, IOAuth2GrantUser, IOAuth2Gra
         return $this->clientManager->findClientByPublicId($clientId);
     }
 
+    public function getClientById($clientId)
+    {
+        return $this->clientManager->findClientById($clientId);
+    }
+
     public function checkClientCredentials(IOAuth2Client $client, $client_secret = null)
     {
         if (!$client instanceof ClientInterface) {
@@ -179,9 +184,9 @@ class OAuthStorage implements IOAuth2RefreshTokens, IOAuth2GrantUser, IOAuth2Gra
     /**
      * {@inheritdoc}
      */
-    public function getAuthCode($code)
+    public function getAuthCode($code, $client = NULL, $request = NULL)
     {
-        return $this->authCodeManager->findAuthCodeByToken($code);
+        return $this->authCodeManager->findAuthCodeByToken($code, $client, $request);
     }
 
     /**
@@ -266,9 +271,9 @@ class OAuthStorage implements IOAuth2RefreshTokens, IOAuth2GrantUser, IOAuth2Gra
     /**
      * {@inheritdoc}
      */
-    public function markAuthCodeAsUsed($code)
+    public function markAuthCodeAsUsed($code, $client = NULL, $request = NULL)
     {
-        $authCode = $this->authCodeManager->findAuthCodeByToken($code);
+        $authCode = $this->authCodeManager->findAuthCodeByToken($code, $client, $request);
         if(null !== $authCode) {
             $this->authCodeManager->deleteAuthCode($authCode);
         }

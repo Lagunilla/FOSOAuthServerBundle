@@ -26,8 +26,8 @@ abstract class AuthCodeManager implements AuthCodeManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function findAuthCodeByToken($token)
+    public function findAuthCodeByToken($token, $client = NULL, $request = NULL)
     {
-        return $this->findAuthCodeBy(array('token' => $token));
+        return $this->findAuthCodeBy(array('token' => $token), $client, $request);
     }
 }
